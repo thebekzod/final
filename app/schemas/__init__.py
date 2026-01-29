@@ -1,4 +1,5 @@
 from app.schemas.auth import AuthResponse, RegisterResponse
+from app.schemas.auth import AuthResponse
 from app.schemas.freelancer import FreelancerOut, FreelancerProfileCreate, FreelancerProfileOut
 from app.schemas.job import JobCreate, JobOut
 from app.schemas.message import MessageCreate, MessageOut
