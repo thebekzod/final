@@ -174,77 +174,82 @@
     </div>
 
     <script>
-      const dict = {
-        en: {
-          title: "Create account",
-          subtitle: "Join the neon talent exchange",
-          firstName: "First name",
-          lastName: "Last name",
-          phone: "Phone",
-          email: "Email",
-          password: "Password",
-          confirmPassword: "Confirm password",
-          roleFreelancer: "Freelancer",
-          roleEmployer: "Employer",
-          action: "Register",
-          successTitle: "Registration successful",
-          successMessage: "Registration successful, please log in.",
-          successAction: "Go to login",
-        },
-        ru: {
-          title: "Создать аккаунт",
-          subtitle: "Войдите в неоновую биржу талантов",
-          firstName: "Имя",
-          lastName: "Фамилия",
-          phone: "Телефон",
-          email: "Электронная почта",
-          password: "Пароль",
-          confirmPassword: "Повторите пароль",
-          roleFreelancer: "Фрилансер",
-          roleEmployer: "Работодатель",
-          action: "Зарегистрироваться",
-          successTitle: "Регистрация прошла успешно",
-          successMessage: "Регистрация прошла успешно, войдите в свой аккаунт.",
-          successAction: "Перейти ко входу",
-        },
-      };
-      bindLangToggle(dict);
-
-      const successModal = document.getElementById("successModal");
-      const successButton = document.getElementById("successButton");
-      successButton.addEventListener("click", () => {
-        window.location.href = "/";
-      });
-
-      const errorMessage = document.getElementById("error");
-      document.getElementById("registerForm").addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const form = event.target;
-        errorMessage.textContent = "";
-        if (form.password.value !== form.password_confirm.value) {
-          errorMessage.textContent =
-            getLang() === "ru" ? "Пароли не совпадают" : "Passwords do not match";
-          return;
-        }
-        const payload = {
-          first_name: form.first_name.value,
-          last_name: form.last_name.value,
-          phone: form.phone.value,
-          email: form.email.value,
-          password: form.password.value,
-          password_confirm: form.password_confirm.value,
-          role: form.role.value,
+      document.addEventListener("DOMContentLoaded", () => {
+        const dict = {
+          en: {
+            title: "Create account",
+            subtitle: "Join the neon talent exchange",
+            firstName: "First name",
+            lastName: "Last name",
+            phone: "Phone",
+            email: "Email",
+            password: "Password",
+            confirmPassword: "Confirm password",
+            roleFreelancer: "Freelancer",
+            roleEmployer: "Employer",
+            action: "Register",
+            successTitle: "Registration successful",
+            successMessage: "Registration successful, please log in.",
+            successAction: "Go to login",
+          },
+          ru: {
+            title: "Создать аккаунт",
+            subtitle: "Войдите в неоновую биржу талантов",
+            firstName: "Имя",
+            lastName: "Фамилия",
+            phone: "Телефон",
+            email: "Электронная почта",
+            password: "Пароль",
+            confirmPassword: "Повторите пароль",
+            roleFreelancer: "Фрилансер",
+            roleEmployer: "Работодатель",
+            action: "Зарегистрироваться",
+            successTitle: "Регистрация прошла успешно",
+            successMessage: "Регистрация прошла успешно, войдите в свой аккаунт.",
+            successAction: "Перейти ко входу",
+          },
         };
-        try {
-          await fetchJSON("/api/auth/register", {
-            method: "POST",
-            body: JSON.stringify(payload),
-          });
-          successModal.classList.remove("hidden");
-          successModal.classList.add("flex");
-        } catch (error) {
-          errorMessage.textContent = error.message;
-        }
+        bindLangToggle(dict);
+
+        const successModal = document.getElementById("successModal");
+        const successButton = document.getElementById("successButton");
+        successButton.addEventListener("click", () => {
+          window.location.href = "/login";
+        });
+
+        const errorMessage = document.getElementById("error");
+        document.getElementById("registerForm").addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const form = event.target;
+          errorMessage.textContent = "";
+          if (form.password.value !== form.password_confirm.value) {
+            errorMessage.textContent =
+              getLang() === "ru" ? "Пароли не совпадают" : "Passwords do not match";
+            return;
+          }
+          const payload = {
+            first_name: form.first_name.value,
+            last_name: form.last_name.value,
+            phone: form.phone.value,
+            email: form.email.value,
+            password: form.password.value,
+            password_confirm: form.password_confirm.value,
+            role: form.role.value,
+          };
+          try {
+            await fetchJSON("/api/auth/register", {
+              method: "POST",
+              body: JSON.stringify(payload),
+            });
+            successModal.classList.remove("hidden");
+            successModal.classList.add("flex");
+            setTimeout(() => {
+              window.location.href = "/login";
+            }, 2000);
+          } catch (error) {
+            errorMessage.textContent = error.message;
+          }
+        });
       });
     </script>
   </body>
