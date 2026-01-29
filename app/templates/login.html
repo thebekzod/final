@@ -13,6 +13,36 @@
         background-size: 400% 400%;
         animation: gradient 15s ease infinite;
       }
+      .orb {
+        position: absolute;
+        border-radius: 9999px;
+        filter: blur(0px);
+        opacity: 0.4;
+        animation: float 18s ease-in-out infinite;
+      }
+      .orb.one {
+        width: 240px;
+        height: 240px;
+        background: radial-gradient(circle, rgba(34, 211, 238, 0.8), transparent 60%);
+        top: 10%;
+        left: 5%;
+      }
+      .orb.two {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(56, 189, 248, 0.6), transparent 60%);
+        bottom: 5%;
+        right: 8%;
+        animation-delay: -6s;
+      }
+      .orb.three {
+        width: 180px;
+        height: 180px;
+        background: radial-gradient(circle, rgba(34, 197, 94, 0.4), transparent 60%);
+        top: 55%;
+        left: 60%;
+        animation-delay: -12s;
+      }
       @keyframes gradient {
         0% {
           background-position: 0% 50%;
@@ -24,6 +54,23 @@
           background-position: 0% 50%;
         }
       }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) translateX(0px);
+        }
+        50% {
+          transform: translateY(-25px) translateX(15px);
+        }
+      }
+    </style>
+  </head>
+  <body class="text-white">
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+      <div class="orb one"></div>
+      <div class="orb two"></div>
+      <div class="orb three"></div>
+    </div>
     </style>
   </head>
   <body class="text-white">
@@ -52,6 +99,7 @@
             name="email"
             required
             placeholder="Email"
+            data-i18n-placeholder="email"
             class="w-full bg-white/10 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-400"
           />
           <input
@@ -59,6 +107,7 @@
             name="password"
             required
             placeholder="Password"
+            data-i18n-placeholder="password"
             class="w-full bg-white/10 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-400"
           />
           <button
@@ -82,12 +131,16 @@
           title: "Sign in",
           subtitle: "Access your neon workspace",
           action: "Login",
+          email: "Email",
+          password: "Password",
           registerLink: "No account? Register",
         },
         ru: {
           title: "Вход",
           subtitle: "Доступ к вашему неоновому пространству",
           action: "Войти",
+          email: "Электронная почта",
+          password: "Пароль",
           registerLink: "Нет аккаунта? Зарегистрируйтесь",
         },
       };

@@ -13,10 +13,15 @@ async def register_user(session: AsyncSession, payload: UserCreate) -> User:
     existing = await session.execute(select(User).where(User.email == payload.email))
     if existing.scalar_one_or_none():
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered")
+    if payload.password != payload.password_confirm:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Passwords do not match")
 
     user = User(
         email=payload.email,
         password_hash=hash_password(payload.password),
+        first_name=payload.first_name,
+        last_name=payload.last_name,
+        phone=payload.phone,
         role=payload.role,
     )
     session.add(user)

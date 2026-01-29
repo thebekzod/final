@@ -9,3 +9,7 @@ from app.schemas.user import UserOut
 class AuthResponse(BaseModel):
     token: TokenResponse
     user: UserOut
+
+
+class RegisterResponse(BaseModel):
+    message: str

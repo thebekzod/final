@@ -63,6 +63,12 @@ function applyTranslations(dict) {
       el.textContent = dict[lang][key];
     }
   });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (dict[lang] && dict[lang][key]) {
+      el.setAttribute("placeholder", dict[lang][key]);
+    }
+  });
 }
 
 function bindLangToggle(dict) {

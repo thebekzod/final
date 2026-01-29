@@ -15,6 +15,10 @@ class UserBase(BaseModel):
 class UserCreate(BaseModel):
     email: EmailStr
     password: str
+    password_confirm: str
+    first_name: str
+    last_name: str
+    phone: str
     role: Literal["freelancer", "employer"]
 
 
@@ -26,6 +30,9 @@ class UserLogin(BaseModel):
 class UserOut(UserBase):
     id: int
     created_at: datetime
+    first_name: str
+    last_name: str
+    phone: str
 
     class Config:
         from_attributes = True
